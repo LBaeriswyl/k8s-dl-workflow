@@ -1,0 +1,16 @@
+FROM python:3.11
+
+# Set up the directory and install dependencies
+WORKDIR /app
+ADD requirements-inference.txt /app
+RUN pip install -r requirements.txt
+
+EXPOSE 5000
+
+# Add the code as the last Docker layers because it changes the most
+ADD mnist_net.py  /app/mnist_net.py
+ADD inference.py  /app/inference.py
+ADD config.py  /app/config.py
+
+# Run the service
+CMD [ "python", "inference.py"]

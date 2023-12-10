@@ -14,7 +14,7 @@ def create_test_set():
       transforms.Normalize((0.1307,), (0.3081,))
       ])
 
-  test_set = datasets.MNIST(config.DATASET_PATH, train=False, transform=transform)
+  test_set = datasets.MNIST(config.DATASET_PATH, download=True, train=False, transform=transform)
   return test_set
 
 
@@ -46,5 +46,5 @@ def perform_inference(index):
   return jsonify(response)
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':
+#    app.run(debug=True)

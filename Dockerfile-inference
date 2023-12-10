@@ -9,8 +9,11 @@ EXPOSE 5000
 
 # Add the code as the last Docker layers because it changes the most
 ADD mnist_net.py  /app/mnist_net.py
-ADD inference.py  /app/inference.py
+ADD inference.py  /app/app.py
 ADD config.py  /app/config.py
 
+USER root
+
+#ENV FLASK_APP=inference.py
 # Run the service
-CMD [ "python", "inference.py"]
+CMD [ "flask", "run", "--host", "0.0.0.0", "--port", "5000"]

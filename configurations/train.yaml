@@ -1,19 +1,15 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: train-app
+  name: train-job
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: train-app
   template:
     metadata:
       labels:
-        app: train-app
+        app: train-job
     spec:
       containers:
-      - name: train-app
+      - name: train-job
         image: lvb243/cml:train-image
         volumeMounts:
         - name: storage-volume
@@ -22,3 +18,4 @@ spec:
       - name: storage-volume
         persistentVolumeClaim:
           claimName: persistent-volume
+      restartPolicy: Never

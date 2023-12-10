@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: train-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: train-app
+  template:
+    metadata:
+      labels:
+        app: train-app
+    spec:
+      containers:
+      - name: train-app
+        image: lvb243/cml:train-image
+        volumeMounts:
+        - name: storage-volume
+          mountPath: /mounted_volume
+      volumes:
+      - name: storage-volume
+        persistentVolumeClaim:
+          claimName: persistent-volume
